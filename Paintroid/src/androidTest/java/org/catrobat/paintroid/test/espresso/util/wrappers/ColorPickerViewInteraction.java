@@ -19,6 +19,7 @@
 
 package org.catrobat.paintroid.test.espresso.util.wrappers;
 
+import android.os.SystemClock;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -66,6 +67,7 @@ public final class ColorPickerViewInteraction extends CustomViewInteraction {
 	}
 
 	public ColorPickerViewInteraction performOpenColorPicker() {
+		SystemClock.sleep(1000);
 		onBottomNavigationView()
 				.onColorClicked();
 		return this;

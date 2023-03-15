@@ -28,6 +28,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.SystemClock;
 import android.view.View;
 
 import org.catrobat.paintroid.MainActivity;
@@ -51,7 +52,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
+import androidx.test.espresso.IdlingPolicies;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.idling.CountingIdlingResource;
@@ -397,6 +400,7 @@ public class ColorDialogIntegrationTest {
 		onView(withId(R.id.color_picker_color_rgb_textview_green)).check(matches(allOf(isDisplayed(), withText(R.string.color_green), withTextColor(getColorById(R.color.pocketpaint_color_picker_rgb_green)))));
 		onView(withId(R.id.color_picker_color_rgb_textview_blue)).check(matches(allOf(isDisplayed(), withText(R.string.color_blue), withTextColor(getColorById(R.color.pocketpaint_color_picker_rgb_blue)))));
 		onView(withId(R.id.color_picker_color_rgb_textview_alpha)).perform(scrollTo());
+		SystemClock.sleep(1000);
 		onView(withId(R.id.color_picker_color_rgb_textview_alpha)).check(matches(allOf(isDisplayed(), withText(R.string.color_alpha), withTextColor(getColorById(R.color.pocketpaint_color_picker_rgb_alpha)))));
 
 		onView(withId(R.id.color_picker_color_rgb_textview_red)).perform(scrollTo());
@@ -684,12 +688,13 @@ public class ColorDialogIntegrationTest {
 		onColorPickerView().check(matches(isDisplayed()));
 	}
 
-	@Test
+@Test
 	public void testColorPickerTabRestoredOnOrientationChange() {
 		onColorPickerView()
 				.performOpenColorPicker();
 		onView(allOf(withId(R.id.color_picker_tab_icon), withBackground(R.drawable.ic_color_picker_tab_rgba)))
 				.perform(click());
+		SystemClock.sleep(1000);
 
 		launchActivityRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
